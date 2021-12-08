@@ -8,15 +8,40 @@ $(() => {
 
     const size = img.eq(0).innerWidth() +16;
     
-    chevronR.click(() => {
-        if(counter == imgs.length-1) {
-            counter = 0;
+    const interval =setInterval(() => {
+        next()
+    }, 2000);
+    let clicked = false;
+
+    img.click(() =>{
+        if(clicked) {
+            interval =setInterval(() => {
+                next()
+            }, 2000);
+
+            clicked=false;
         }else {
-            counter++;
+            clearInterval(interval)
+            clicked=true;
+
         }
-        img.css('transform','translateX('+(-size * counter)+'px')
 
     })
+
+    chevronR.click(next)
+
+    function next() {
+      
+            if(counter == imgs.length-1) {
+                counter = 0;
+            }else {
+                counter++;
+            }
+            img.css('transform','translateX('+(-size * counter)+'px')
+    
+        
+    }
+
     chevronL.click(() => {
         if(counter == 0) {
             counter = imgs.length-1;
